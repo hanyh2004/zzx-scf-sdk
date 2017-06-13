@@ -90,7 +90,7 @@ channelId=2&method=getLoanDetailInfo&params={"loanDate":"2016-12-09","commission
 
 ## 三, 接口说明
 
-### 1 注册接口
+### 1, 注册接口
 
 #### 1.1 注册新客户
 方法名：upsertCustomer
@@ -144,7 +144,7 @@ data | 内容 base64  | ss |Y|N|
 
 * statusCode = 200即为成功，非 200 看errMsg字段
 
-### 2 添加、更新商品信息
+### 2, 添加、更新商品信息
 方法名：upsertProduct
 
 调用方向：3rd->zzx
@@ -166,7 +166,7 @@ supplier|供应商| double|Y|N|
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
 
-### 3 添加、更新订单信息
+### 3, 添加、更新订单信息
 方法名：upsertOrder
 
 调用方向：3rd->zzx
@@ -199,7 +199,7 @@ productSet | 订单商品集合｛productId：num，productId2:num...}  | string
 
 
 
-### 3 申请贷款
+### 4.1, 申请贷款
 用多个订单来申请融资，中子星会根据风控标准筛选出合适的订单
 方法名：loanApply
 
@@ -241,7 +241,7 @@ productSet | 订单商品集合｛productId：num，productId2:num...}  | string
 * statusCode = 200即为成功，非 200 看errMsg字段
 * loadId = xxxx,返回这次贷款申请的ID ,string类型
 
-#### 4.2 上传贷款申请资料
+#### 4.2, 上传贷款申请资料
 
 方法名：uploadAttachment
 
@@ -260,7 +260,7 @@ data | 内容 base64  | ss |Y|N|
 
 * statusCode = 200即为成功，非 200 看errMsg字段
 
-#### 4.3 确认贷款方案
+#### 4.3, 确认贷款方案
 
 方法名：loanApplySubmit
 贷款申请的补充资料提交完毕后，确认申请
@@ -278,7 +278,7 @@ loadId | 贷款编号  | string(128)|Y|Y|
 * statusCode = 200即为成功，非 200 看errMsg字段
 
 
-### 5 贷款申请结果通知
+### 5, 贷款申请结果通知
 中子星请求平台
 
 方法名：loanApplyResultNotify
@@ -308,7 +308,7 @@ loanAmount | 该订单审批通过的贷款金额，仅当result=1有效。为0�
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
 
-### 6 贷款申请结果确认
+### 6, 贷款申请结果确认
 平台请求中子星
 
 方法名：loanContractConfirm
