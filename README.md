@@ -86,7 +86,7 @@ channelId=2&method=getLoanDetailInfo&params={"loanDate":"2016-12-09","commission
 ```
 
 ## 二，交互流程
-<img src="flow.png"/>
+![](flow.png)
 
 ## 三, 接口说明
 
