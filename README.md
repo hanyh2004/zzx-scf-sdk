@@ -470,6 +470,6 @@ settlementAmount|结算金额| double|Y|N|
 consigneeName | 订单收货人  | string(128)|Y|N|
 consigneeAddress | 订单收货人地址  | string(128)|Y|N|
 consigneeTel | 订单收货人电话  | string(128)|Y|N|
-createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
+createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 productSet | 订单商品集合｛productId：num，productId2:num...}  | string|Y|N|
