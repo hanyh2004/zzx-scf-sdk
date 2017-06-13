@@ -12,9 +12,9 @@
 HTTPS|POST  |JSON|  UTF-8|	
 
 ### 1.2  接口地址
-* 中子星接口地址：api.scf.xingyoucai.com/open/entry
+* 中子星接口地址：api.scf.xingyoucai.com/open/entry(暂未开放)
 * 第三方接口地址：xx
-* 接口sdk例子：https://github.com:hanyh2004/zzx-scf-sdk.git
+* 接口sdk例子：https://github.com/hanyh2004/zzx-scf-sdk
 
 ### 1.3 消息格式
 #### 1.3.1 请求格式
@@ -49,11 +49,11 @@ HTTPS|POST  |JSON|  UTF-8|
 
 请求
 ```
-{"method":"registerNewCustomer","ver":"1.0","channelId":"99","signType":"RSA2","params":{"idNo":"21010219910405503X","userName":"测试姓名","contactTel":"13800138000","registerTime":"2016-09-21 10:27:34"},"sign":"..."}
+{"method":"upsertCustomer","ver":"1.0","channelId":"99","signType":"RSA2","params":{"idNo":"21010219910405503X","userName":"测试姓名","contactTel":"13800138000","registerTime":"2016-09-21 10:27:34"},"sign":"..."}
 ```
 应答
 ```
-{"method":"registerNewCustomer","ver":"1.0","channelId":"99","params":{"idNo":"21010219910405503X"},"signType":"RSA2","sign":"略","statusCode":200}
+{"method":"upsertCustomer","ver":"1.0","channelId":"99","params":{"idNo":"21010219910405503X"},"signType":"RSA2","sign":"略","statusCode":200}
 ```
 
 
@@ -71,7 +71,19 @@ HTTPS|POST  |JSON|  UTF-8|
 * 得到通知或应答后，根据收到的内容，按照规则产生待签名字符串，然后把待签名字符串、公钥、返回参数中的签名结果参数sign的值三者一同放入RSA签名函数中进行非对称的签名运算，来判断签名是否正确。
 
 #### 1.4.4 待签名字符串的产生方法 
-* 直接把请求数据中的所有元素(除sign本身)按照“key值=value值”的格式拼接起来，并且把这些拼接以后的元素以“&”字符再连接起来（顺序按首字母升序排列，值为空的不参与签名），所连接起来的这段字符串即是请求时的待签名字符串。 
+* 直接把请求数据中的所有元素(除sign本身)按照“key值=value值”的格式拼接起来，并且把这些拼接以后的元素以“&”字符再连接起来（顺序按首字母升序排列，值为空的不参与签名，params字符串里面的内容不需要排序），所连接起来的这段字符串即是请求时的待签名字符串。 
+
+* 例子
+
+待签名字符串：
+```
+channelId=2&method=getLoanDetailInfo&params={"loanDate":"2016-12-09","commissions":60,"loanAmount":2000,"balance":2080.53,"refunds":[{"periodNumber":1,"dueDate":"20170108","dueAmount":693.51,"status":3},{"periodNumber":2,"dueDate":"20170207","dueAmount":693.51,"status":3},{"periodNumber":3,"dueDate":"20170309","dueAmount":693.51,"status":3}]}&signType=RSA&ver=1.0
+```
+
+签名后
+```
+{"errCode":200,"method":"getLoanDetailInfo","ver":"1.0","channelId":"2","signType":"RSA","sign":"AiNnysWeGcCmxAEnONxJhlvImIJgnlo6qAqf5+EgHmCSpVTGfydcR6bW0bdAve4Yj3bRm7hx36/2NtnbQiZRm/PD8S0JIt6lTp0LRzFU0ZcCy5RMSc6iM08Cm6KpiljTjkohCsOy0V6Ux2Hnu3xSSG3gLCBDAUVqWLPeADlFn8s\u003d","params":{"loanDate":"2016-12-09","commissions":60.0,"loanAmount":2000.0,"balance":2080.53,"refunds":[{"periodNumber":1,"dueDate":"20170108","dueAmount":693.51,"status":3},{"periodNumber":2,"dueDate":"20170207","dueAmount":693.51,"status":3},{"periodNumber":3,"dueDate":"20170309","dueAmount":693.51,"status":3}]}}
+```
 
 ## 二，交互流程
 ![](file:///flow.pdf)
@@ -99,11 +111,11 @@ registerTime | 用户在来源平台中的注册时间(YYYY-MM-DD HH24:MI:SS)  |
 address | 客户地址  | string(256)|Y|N|
 contactTel | 联系电话  | string(128)|Y|N|
 contactName | 联系人电话  | string(128)|Y|N|
-rmbCreditLimit | RMB授信额度上限  | double|N|N|
-rmbCreditUsed | RMB授信已用额度  | double|N|N|
-rmbCreditAvailable | RMB授信可用额度  | double|N|N|
-rmbCreditDays | RMB授信天数  | int|N|N|
-rmbCreditStatus | RMB授信状态 （0未开通，1开通，2冻结） | int|N|N|
+rmbCreditLimit| RMB授信额度上限  | double|N|N|
+rmbCreditUsed| RMB授信已用额度  | double|N|N|
+rmbCreditAvailable| RMB授信可用额度  | double|N|N|
+rmbCreditDays| RMB授信天数  | int|N|N|
+rmbCreditStatus | RMB授信状态 （0未开通，1开通，2冻结） | int|N|N|
 rmbTicketRule | RMB开票规则 | string(128)|N|N|
 lastOrderDate | 最后下单日期 (YYYY-MM-DD HH24:MI:SS)| string(128)|N|N|
 idcard | 客户身份证  | string(256)|N|N|
@@ -111,7 +123,7 @@ idcard | 客户身份证  | string(256)|N|N|
 
 返回值：
 
-statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200即为成功，非 200 看errMsg字段
 
 #### 1.2 上传资料
 
@@ -126,16 +138,16 @@ statusCode = 200即为成功，非 200 看errMsg字段
 id | 编号(本地指客户编号)  | string(128)|Y|Y|
 fileSubject | 文件主题{营业执照:yyzz；组织机构代码：zzjg;税务登记证文件:sudj;单位银行结算账户开户许可证:khxk;企业法人证件正面:frzjz;企业法人证件反面:frzjf	  | string(128)|Y|N|
 data | 内容 base64  | ss |Y|N|
-* fileSubject的格式为：[upsertCustomer-特定主题]，比如是营业执照，则是upsertCustomer-yyzz
+* fileSubject的格式为：[upsertCustomer-特定主题],比如是营业执照,则是upsertCustomer-yyzz
+
 返回值：
 
-statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200即为成功，非 200 看errMsg字段
 
 ### 2 添加、更新商品信息
 方法名：upsertProduct
 
 调用方向：3rd->zzx
-
 
 参数列表：
 
@@ -152,7 +164,7 @@ amount|成交金额| double|Y|N|
 supplier|供应商| double|Y|N|
 
 返回值：
-statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200即为成功，非 200 看errMsg字段
 
 ### 3 添加、更新订单信息
 方法名：upsertOrder
@@ -177,13 +189,13 @@ settlementAmount|结算金额| double|Y|N|
 consigneeName | 订单收货人  | string(128)|Y|N|
 consigneeAddress | 订单收货人地址  | string(128)|Y|N|
 consigneeTel | 订单收货人电话  | string(128)|Y|N|
-createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
+createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 productSet | 订单商品集合｛productId：num，productId2:num...}  | string|Y|N|
 
 
 返回值：
-statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200即为成功，非 200 看errMsg字段
 
 
 
@@ -200,9 +212,10 @@ statusCode = 200即为成功，非 200 看errMsg字段
 amount | 贷款申请金额（销售合同金额合计）单位：元  | double |Y|Y|
 productId | 金融产品ID  | string(128)|Y|N|
 orders | 订单集合  | string(128)|Y|N|
-*  金融产品ID确定了这次贷款申请的利率，期限等金融要素,对接等时候会生成对应的ID信息
+*  金融产品ID确定了这次贷款申请的利率，期限等金融要素.对接时中子星会给对应的ID信息
 
 order
+
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
 orderId | 编号  | string(128)|Y|Y|
@@ -219,14 +232,14 @@ settlementAmount|结算金额| double|Y|N|
 consigneeName | 订单收货人  | string(128)|Y|N|
 consigneeAddress | 订单收货人地址  | string(128)|Y|N|
 consigneeTel | 订单收货人电话  | string(128)|Y|N|
-createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
+createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 productSet | 订单商品集合｛productId：num，productId2:num...}  | string|Y|N|
 
 
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
-* loadId = xxxx 参数里面的
+* loadId = xxxx,返回这次贷款申请的ID ,string类型
 
 #### 4.2 上传贷款申请资料
 
@@ -241,10 +254,11 @@ productSet | 订单商品集合｛productId：num，productId2:num...}  | string
 id | 编号(本地贷款编号)  | string(128)|Y|Y|
 fileSubject | loanApply-文件主题  | string(128)|Y|N|
 data | 内容 base64  | ss |Y|N|
-* fileSubject的格式为：[loanApply-文件主题]，比如是采购合同，则是loanApply-采购合同
+* fileSubject的格式为：[loanApply-文件主题]，比如是采购合同,则是loanApply-采购合同
+
 返回值：
 
-statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200即为成功，非 200 看errMsg字段
 
 #### 4.3 确认贷款方案
 
@@ -262,10 +276,10 @@ loadId | 贷款编号  | string(128)|Y|Y|
 
 * fileSubject的格式为：[loanApply-文件主题]，比如是采购合同，则是loanApply-采购合同
 返回值：
-statusCode = 200即为成功，非 200 看errMsg字段
+* statusCode = 200即为成功，非 200 看errMsg字段
 
 
-### 5 贷款申请结果通知（
+### 5 贷款申请结果通知
 中子星请求平台
 
 方法名：loanApplyResultNotify
@@ -286,10 +300,14 @@ paymentOption |还款方式 1.到期一次性   | int|Y|Y|
 orders | 订单编号集合  | string|Y|Y|
 
 orders时一个数组，里面每一个order参数如下：
+
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
 sourceOrderId | 来源平台中的订单编号，仅当result=1有效  | string(128)|Y|Y|
 loanAmount | 该订单审批通过的贷款金额，仅当result=1有效。为0是，表示该订单未审核通过。 int|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非 200 看errMsg字段
 
 ### 6 贷款申请结果确认
 平台请求中子星
@@ -304,6 +322,9 @@ loanAmount | 该订单审批通过的贷款金额，仅当result=1有效。为0�
 ----|------|----|------|----|
 loadId | 贷款编号  | string(128)|Y|Y|
 confirmation | 确认结果1：同意   2：取消   3：过期 | int|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非 200 看errMsg字段
 
 ### 7，贷款放款完成通知
 中子星收到平台的确认消息即开始放款操作
@@ -339,6 +360,9 @@ dueDate | 应还款日期(YYYYMMDD) | string[]|Y|Y|
 dueCapital | 应还本金 | double[]|Y|Y|
 dueInterest | 应还利息 | double[]|Y|Y|
 dueAmount | 应还金额总和 | double[]|Y|Y|
+
+返回值：
+* statusCode = 200即为成功，非 200 看errMsg字段
 
 ### 8，主动还款通知
     第三方平台财务汇款后通知
@@ -390,6 +414,7 @@ refundType | 还款类型，1：到期还款，2：提前还款，3：追偿还�
 方法名：customerRefundNotify
 
 调用方向：zzx->3rd
+
 参数列表：
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
@@ -411,6 +436,7 @@ overdueDays | 逾期天数   | int|Y|Y|
 方法名：getOrderHistory
 
 调用方向：zzx->3rd
+
 参数列表：
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
@@ -422,11 +448,13 @@ endDate | 查询终止日期(yyyy-MM-dd HH:mm:ss) | string|Y|Y|
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
 * params字段说明
+
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
 orders | 订单集合  | string|Y|Y|
 
 order
+
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
 orderId | 编号  | string(128)|Y|Y|
