@@ -86,7 +86,7 @@ channelId=2&method=getLoanDetailInfo&params={"loanDate":"2016-12-09","commission
 ```
 
 ## 二，交互流程
-![](file:///flow.pdf)
+<img src="flow.png"/>
 
 ## 三, 接口说明
 
@@ -254,7 +254,7 @@ productSet | 订单商品集合｛productId：num，productId2:num...}  | string
 id | 编号(本地贷款编号)  | string(128)|Y|Y|
 fileSubject | loanApply-文件主题  | string(128)|Y|N|
 data | 内容 base64  | ss |Y|N|
-* fileSubject的格式为：[loanApply-文件主题]，比如是采购合同,则是loanApply-采购合同
+* fileSubject的格式为：[loanApply-文件主题]，比如是采购合同,则是loanApply-采购合同
 
 返回值：
 
@@ -274,7 +274,6 @@ data | 内容 base64  | ss |Y|N|
 ----|------|----|------|----|
 loadId | 贷款编号  | string(128)|Y|Y|
 
-* fileSubject的格式为：[loanApply-文件主题]，比如是采购合同，则是loanApply-采购合同
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
 
