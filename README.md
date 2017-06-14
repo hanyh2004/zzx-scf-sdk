@@ -101,24 +101,23 @@ channelId=2&method=getLoanDetailInfo&params={"loanDate":"2016-12-09","commission
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
-userId | 客户编号  | string(128)|Y|Y|
-email | 客户邮箱  | string(128)|Y|N|
-userName | 客户名称  | string(128)|Y|N|
-companyName | 公司名字  | string(128)|N|N|
-registerTel | 注册电话  | string(256)|Y|N|
-userLevel | 客户级别  | string(128)|Y|N|
+userId | 客户编号  | string|Y|Y|
+email | 客户邮箱  | string|Y|N|
+userName | 客户名称  | string|Y|N|
+companyName | 公司名字  | string|N|N|
+registerTel | 注册电话  | string|Y|N|
+userLevel | 客户级别  | string|Y|N|
 registerTime | 用户在来源平台中的注册时间(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
-address | 客户地址  | string(256)|Y|N|
-contactTel | 联系电话  | string(128)|Y|N|
-contactName | 联系人电话  | string(128)|Y|N|
+address | 客户地址  | string|Y|N|
+contactTel | 联系电话  | string|N|N|
+contactName | 联系人姓名  | string|N|N|
 rmbCreditLimit| RMB授信额度上限  | double|N|N|
 rmbCreditUsed| RMB授信已用额度  | double|N|N|
 rmbCreditAvailable| RMB授信可用额度  | double|N|N|
 rmbCreditDays| RMB授信天数  | int|N|N|
-rmbCreditStatus | RMB授信状态 （0未开通，1开通，2冻结） | int|N|N|
-rmbTicketRule | RMB开票规则 | string(128)|N|N|
-lastOrderDate | 最后下单日期 (YYYY-MM-DD HH24:MI:SS)| string(128)|N|N|
-idcard | 客户身份证  | string(256)|N|N|
+rmbCreditStatus | RMB授信状态 （0未开通，1开通，2冻结） | string|N|N|
+rmbTicketRule | RMB开票规则 | string|N|N|
+lastOrderDate | 最后下单日期 (YYYY-MM-DD HH24:MI:SS)| string|N|N|
 
 
 返回值：
