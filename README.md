@@ -487,7 +487,7 @@ price | 商品单价  | double|Y|N|
 quantity | 购买数量  | int|Y|N|
 
 
-### 12，插入物流信息
+### 12，物流信息维护
 
 方法名：upsertLogistics
 
@@ -507,6 +507,53 @@ address | 仓库地址  | string|Y|Y|
 quantity | 货品数量  | string|Y|Y|
 sendTime | 发货时间  | string|Y|Y|
 receiveTime | 收货时间  | string|N|Y|
+
+
+返回值：
+* statusCode = 200即为成功，非 200 看errMsg字段
+
+### 13，售后信息维护
+
+方法名：upsertLogistics
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+email | 订单编号  | string|Y|Y|
+orderId | 订单编号  | string|Y|Y|
+status | 售后单状态  | string|Y|Y|
+amount | 退货金额  | double|Y|Y|
+createTime | 创建时间  | string|Y|Y|
+finishTime | 完成时间  | string|N|Y|
+
+
+返回值：
+* statusCode = 200即为成功，非 200 看errMsg字段
+
+
+### 14，发票信息维护
+
+方法名：upsertTicket
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+email | 客户ID  | string|Y|Y|
+companyName | 公司台头  | string|Y|Y|
+payType | 售后单状态  | string|Y|Y|
+amount | 退货金额  | double|Y|Y|
+createTime | 开票日期  | string|Y|Y|
+taxType | 发票种类  | string|N|Y|
+ticketNo | 发票号码  | string|N|Y|
+taxType | 发票种类  | string|N|Y|
+transactionTime | 交易日期(Y-m-d H:i:s)  | string|Y|Y|
+price | 交易金额  | double|Y|Y|
 
 
 返回值：
