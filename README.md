@@ -103,7 +103,7 @@ channelId=2&method=getLoanDetailInfo&params={"loanDate":"2016-12-09","commission
 ----|------|----|------|----|
 userId | 客户编号  | string|Y|Y|
 email | 客户邮箱  | string|Y|N|
-userName | 客户名称  | string|Y|N|
+userName | 收货人名称  | string|Y|N|
 companyName | 公司名字  | string|N|N|
 registerTel | 注册电话  | string|Y|N|
 userLevel | 客户级别  | string|Y|N|
