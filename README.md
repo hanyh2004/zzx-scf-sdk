@@ -213,7 +213,7 @@ productId | 金融产品ID  | string(128)|Y|N|
 orders | 订单集合  | string(128)|Y|N|
 *  金融产品ID确定了这次贷款申请的利率，期限等金融要素.对接时中子星会给对应的ID信息
 
-order
+* order实体说明
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
@@ -233,8 +233,14 @@ consigneeAddress | 订单收货人地址  | string(128)|Y|N|
 consigneeTel | 订单收货人电话  | string(128)|Y|N|
 createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
-productSet | 订单商品集合｛productId：num，productId2:num...}  | string|Y|N|
+products | 订单商品集合，一个数组，每个项目是一个product | string|Y|N|
 
+* product实体说明
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+productName | 商品名称  | string(128)|Y|Y|
+price | 商品单价  | double|Y|N|
+quantity | 购买数量  | int|Y|N|
 
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
@@ -449,9 +455,9 @@ endDate | 查询终止日期(yyyy-MM-dd HH:mm:ss) | string|Y|Y|
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
-orders | 订单集合  | string|Y|Y|
+orders | order订单集合(数组)  | string|Y|Y|
 
-order
+* order实体说明
 
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
@@ -471,4 +477,37 @@ consigneeAddress | 订单收货人地址  | string(128)|Y|N|
 consigneeTel | 订单收货人电话  | string(128)|Y|N|
 createTime | 订单生成日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
-productSet | 订单商品集合｛productId：num，productId2:num...}  | string|Y|N|
+products | 订单商品集合，一个数组，每个项目是一个product | string|Y|N|
+
+* product实体说明
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+productName | 商品名称  | string(128)|Y|Y|
+price | 商品单价  | double|Y|N|
+quantity | 购买数量  | int|Y|N|
+
+
+### 12，插入物流信息
+
+方法名：upsertLogistics
+
+调用方向：3rd->zzx
+
+参数列表：
+
+参数名 | 说明 | 类型 | 必须 | 唯一|
+----|------|----|------|----|
+orderId | 订单编号  | string|Y|Y|
+startDate | 配送方式  | string|Y|Y|
+status | 物流状态  | string|Y|Y|
+startPoint | 物流起点  | string|Y|Y|
+dstPoint | 物流终点  | string|Y|Y|
+ticketNo | 快递单号  | string|N|Y|
+address | 仓库地址  | string|Y|Y|
+quantity | 货品数量  | string|Y|Y|
+sendTime | 发货时间  | string|Y|Y|
+receiveTime | 收货时间  | string|N|Y|
+
+
+返回值：
+* statusCode = 200即为成功，非 200 看errMsg字段
