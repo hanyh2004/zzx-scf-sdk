@@ -249,7 +249,7 @@ supplier|供应商| double|Y|N|
 
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
-* loadId = xxxx,返回这次贷款申请的ID ,string类型
+* 在响应体的params字段里面有 ｛loadId : xxxx},返回这次贷款申请的ID ,string类型
 
 #### 4.2, 上传贷款申请资料
 
