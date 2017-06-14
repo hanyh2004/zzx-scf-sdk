@@ -143,7 +143,7 @@ data | 内容 base64  | ss |Y|N|
 
 * statusCode = 200即为成功，非 200 看errMsg字段
 
-### 2, 添加、更新商品信息
+### ~~2, 添加、更新商品信息~~
 方法名：upsertProduct
 
 调用方向：3rd->zzx
@@ -165,7 +165,7 @@ supplier|供应商| double|Y|N|
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
 
-### 3, 添加、更新订单信息
+### ~~3, 添加、更新订单信息~~
 方法名：upsertOrder
 
 调用方向：3rd->zzx
@@ -242,6 +242,10 @@ products | 订单商品集合，一个数组，每个项目是一个product | st
 productName | 商品名称  | string(128)|Y|Y|
 price | 商品单价  | double|Y|N|
 quantity | 购买数量  | int|Y|N|
+category | 分类  | string(256)|Y|N|
+tax | 税率  | double|Y|N|
+source | 产地 | string(50)|Y|Y|
+supplier|供应商| double|Y|N|
 
 返回值：
 * statusCode = 200即为成功，非 200 看errMsg字段
