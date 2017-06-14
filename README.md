@@ -481,6 +481,7 @@ updateTime | 订单状态更新日期(YYYY-MM-DD HH24:MI:SS)  | string(50)|Y|Y|
 products | 订单商品集合，一个数组，每个项目是一个product | string|Y|N|
 
 * product实体说明
+
 参数名 | 说明 | 类型 | 必须 | 唯一|
 ----|------|----|------|----|
 productName | 商品名称  | string(128)|Y|Y|
